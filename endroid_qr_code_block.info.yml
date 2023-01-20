@@ -1,0 +1,5 @@
+name: EndroidQrCode Block
+description: Generates Qr Code using Endroid Library.
+type: module
+package: other
+core_version_requirement: ^8 || ^9 || ^10

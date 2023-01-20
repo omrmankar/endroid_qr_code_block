@@ -1,0 +1,15 @@
+endroid_qr_code_block.qr.generator:
+  path: '/image-qr-generate/{content}'
+  defaults:
+    _controller: '\Drupal\endroid_qr_code_block\Controller\QRImageGeneratorController::image'
+  requirements:
+    # Needs to be accessed by an anonymous user.
+    _access: 'TRUE'
+endroid_qr_code_block.qr.url:
+  path: '/image-qr-generate-with-url'
+  defaults:
+    _controller: '\Drupal\endroid_qr_code_block\Controller\QRImageGeneratorController::withUrl'
+  requirements:
+    # Needs to be accessed by an anonymous user.
+    _access: 'TRUE'
+
