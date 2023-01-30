@@ -4,6 +4,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Cache\Cache;
 
 /**
  * @Block(
@@ -93,13 +94,31 @@ class EndroidQRcodeBlock extends BlockBase {
       '#theme' => 'image',
       '#uri' => $uri,
       '#attributes' => ['class' => 'module-name-center-image'],
-      '#cache' => [
-        'tags' => ['node:,'.$new_node_id.'.'],
-       ]
     ];
 
     return $element;
 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof NodeInterface) {
+      $nid = $node->id();
+      return Cache::mergeTags(parent::getCacheTags(), ['node:' . $nid]);
+    }
+    else {
+      return parent::getCacheTags();
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
   }
 
 }
